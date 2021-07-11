@@ -13,10 +13,8 @@ defmodule ProjectMisWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # new plug todo:
   pipeline :json_api do
     plug :accepts, ["json-api"]
-    plug JaSerializer.Deserializer
   end
 
   scope "/", ProjectMisWeb do
