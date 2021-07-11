@@ -13,15 +13,20 @@ defmodule ProjectMisWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # new plug todo:
+  pipeline :json_api do
+    plug :accepts, ["json-api"]
+    plug JaSerializer.Deserializer
+  end
+
   scope "/", ProjectMisWeb do
     pipe_through :browser
-
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
   scope "/api", ProjectMisWeb do
-    pipe_through :api
+    pipe_through :json_api
     resources "/projects", ProjectController, except: [:new, :edit]
     resources "/documents", DocumentController, only: [:index, :show]
   end
